@@ -4,25 +4,11 @@
 //
 
 export const commands = (val) => {
-  let binary = parseInt(val.toString(2));
-  const secret = [
-    [1000, "jump"],
-    [100, "close your eyes"],
-    [10, "double blink"],
-    [1, "wink"],
-  ];
-  let resp = [];
-  let reverse = false;
-  if (binary - 10000 >= 0) {
-    binary -= 10000;
-    reverse = true;
-  }
-  secret.forEach((el) => {
-    if (binary - el[0] >= 0) {
-      binary -= el[0];
-      resp.unshift(el[1]);
-    }
-  });
-  if (reverse) resp = resp.reverse();
-  return resp;
+  let ret = [];
+  if ((val & 0b00001) === 0b00001) ret.push("wink");
+  if ((val & 0b00010) === 0b00010) ret.push("double blink");
+  if ((val & 0b00100) === 0b00100) ret.push("close your eyes");
+  if ((val & 0b01000) === 0b01000) ret.push("jump");
+  if ((val & 0b10000) === 0b10000) ret.reverse();
+  return ret;
 };
